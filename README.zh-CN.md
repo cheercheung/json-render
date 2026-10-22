@@ -1,6 +1,18 @@
-# json-render + EvoLink Luna Decision
+# json-render + openai decision model
 
 [English](README.md) | [简体中文](README.zh-CN.md)
+
+## 录屏示例
+
+https://github.com/user-attachments/assets/4ca2a733-8e4a-478a-9b0f-4e284e805722
+
+[下载英文联系表单任务的原始录屏](docs/media/luna-contact-form.mp4)（31.76 秒，原速，未剪辑）。
+
+2026-10-22 的这次录制中，界面组合耗时 **2.471 秒**，使用 **2 次评估器调用**，报告 **11,840 个输入 token**。必填字段、错误邮箱和有效提交提示均通过验证。这些数据仅描述一次本地验收，不代表延迟基准或价格对比；实际账单尚未核对。
+
+[阅读验证结果与已知限制（英文）](docs/evolink-validation.md)。
+
+## 项目介绍
 
 让 AI 根据自然语言需求，使用应用提供的组件、数据和操作，组合出可交互的界面。
 
@@ -128,16 +140,6 @@ for await (const event of experimental_composeSpec({
 ```
 
 示例中的组件目录、候选配置和客户端渲染器需要由你的应用提供。[阅读评估器配置与打包说明（英文）](EVOLINK_LOCAL.md)，[查看 Playground 的候选组件配置](apps/web/lib/jev/grammar.ts)，或[阅读上游框架 API 与渲染器参考（英文）](README.upstream.md)。
-
-## 录屏示例
-
-https://github.com/user-attachments/assets/4ca2a733-8e4a-478a-9b0f-4e284e805722
-
-[下载英文联系表单任务的原始录屏](docs/media/luna-contact-form.mp4)（31.76 秒，原速，未剪辑）。
-
-2026-10-22 的这次录制中，界面组合耗时 **2.471 秒**，使用 **2 次评估器调用**，报告 **11,840 个输入 token**。必填字段、错误邮箱和有效提交提示均通过验证。这些数据仅描述一次本地验收，不代表延迟基准或价格对比；实际账单尚未核对。
-
-[阅读验证结果与已知限制（英文）](docs/evolink-validation.md)。
 
 ## 限制与开发检查
 

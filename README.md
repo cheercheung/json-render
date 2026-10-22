@@ -1,6 +1,18 @@
-# json-render + EvoLink Luna Decision
+# json-render + openai decision model
 
 [English](README.md) | [简体中文](README.zh-CN.md)
+
+## Recorded example
+
+https://github.com/user-attachments/assets/4ca2a733-8e4a-478a-9b0f-4e284e805722
+
+[Download the original English contact-form recording](docs/media/luna-contact-form.mp4) (31.76 seconds, original speed, no cuts).
+
+The recorded run on 2026-10-22 finished composition in **2.471 seconds**, with **2 evaluator calls** and **11,840 reported input tokens**. Required fields, invalid email and the valid-submission notification passed. These are observations from one local acceptance run, not a latency benchmark or a price comparison. Actual billing was not verified.
+
+[Read the validation results and known limitations](docs/evolink-validation.md).
+
+## Overview
 
 Build interactive interfaces from natural-language requests using components, data and actions that your application controls.
 
@@ -128,16 +140,6 @@ for await (const event of experimental_composeSpec({
 ```
 
 [Read the evaluator configuration and package instructions](EVOLINK_LOCAL.md). [Explore the playground's candidate recipes](apps/web/lib/jev/grammar.ts). [Read the original framework API and renderer reference](README.upstream.md).
-
-## Recorded example
-
-https://github.com/user-attachments/assets/4ca2a733-8e4a-478a-9b0f-4e284e805722
-
-[Download the original English contact-form recording](docs/media/luna-contact-form.mp4) (31.76 seconds, original speed, no cuts).
-
-The recorded run on 2026-10-22 finished composition in **2.471 seconds**, with **2 evaluator calls** and **11,840 reported input tokens**. Required fields, invalid email and the valid-submission notification passed. These are observations from one local acceptance run, not a latency benchmark or a price comparison. Actual billing was not verified.
-
-[Read the validation results and known limitations](docs/evolink-validation.md).
 
 ## Limits and development checks
 
