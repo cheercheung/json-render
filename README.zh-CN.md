@@ -16,7 +16,7 @@ https://github.com/user-attachments/assets/4ca2a733-8e4a-478a-9b0f-4e284e805722
 
 让 AI 根据自然语言需求，使用应用提供的组件、数据和操作，组合出可交互的界面。
 
-这是 [cheercheung 维护的 fork](https://github.com/cheercheung/json-render)，原项目为 [Vercel Labs 的 json-render](https://github.com/vercel-labs/json-render)。本 fork 在原有 **default** 和 **Jev** 模式之外，新增 **EvoLink Luna Decision** 评估器和 Playground 选项，保留上游框架和 Apache-2.0 许可证。
+基于 [Vercel Labs 的 json-render](https://github.com/vercel-labs/json-render)，本版本在原有 **default** 和 **Jev** 模式之外，新增 **OpenAI Luna Decision**，用于选择组件和安排布局，保留上游框架和 Apache-2.0 许可证。
 
 ## 给谁用？
 
@@ -49,7 +49,7 @@ default 模式保留上游的生成模型流程。框架还包含其他 Web 框�
 
 ### 1. 克隆仓库并准备源码构建
 
-EvoLink 评估器是**本 fork 的源码新增功能**。仅安装上游发布的 npm 包，不会包含这部分接入。
+Luna Decision 评估器是**本 fork 的源码新增功能**。仅安装上游发布的 npm 包，不会包含这部分接入。
 
 环境要求：Node.js 24+、pnpm 11.1.3，以及全局可用的 `portless` 命令。以下工具版本用于本地验收：
 
@@ -74,13 +74,13 @@ pnpm turbo run build --filter='web^...'
 chmod 600 apps/web/.env.local
 ```
 
-使用编辑器打开 `apps/web/.env.local`。如果**只使用 Luna Decision**，填写：
+使用编辑器打开 `apps/web/.env.local`。如果**只使用 OpenAI Luna Decision**，填写：
 
 ```dotenv
 EVOLINK_API_KEY=your_evolink_api_key
 ```
 
-[获取 EvoLink API Key](https://evolink.ai)。真实 Key 只保存在 `.env.local` 或服务端环境变量中，不要填入示例文件或浏览器端代码。
+本示例通过 EvoLink 调用 OpenAI Luna Decision。[获取 API Key](https://evolink.ai/dashboard/keys?utm_source=github&utm_medium=repo&utm_campaign=json-render&utm_content=quickstart)，然后将真实 Key 保存在 `.env.local` 或服务端环境变量中，不要填入示例文件或浏览器端代码。
 
 | 模式或功能 | 环境变量 | 何时需要 |
 | --- | --- | --- |
@@ -166,4 +166,6 @@ pnpm type-check
 
 ## 来源与许可证
 
-本 fork 由 cheercheung 维护，基于上游 commit `72568f990e5502c4d3115691facb8ca928a5c9fc`。[查看来源记录](EVOLINK_SOURCE.json)、[阅读原始上游 README（英文）](README.upstream.md)，以及[阅读 Apache-2.0 许可证](LICENSE)。
+原始仓库：[vercel-labs/json-render](https://github.com/vercel-labs/json-render)，由 Vercel Labs 开发。
+
+许可证：[Apache-2.0](LICENSE)。

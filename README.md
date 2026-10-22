@@ -16,7 +16,7 @@ The recorded run on 2026-10-22 finished composition in **2.471 seconds**, with *
 
 Build interactive interfaces from natural-language requests using components, data and actions that your application controls.
 
-This is [cheercheung's fork](https://github.com/cheercheung/json-render) of [Vercel Labs' json-render](https://github.com/vercel-labs/json-render). It adds an **EvoLink Luna Decision** evaluator and playground option alongside the original **default** and **Jev** modes. The upstream Apache-2.0 license and framework remain intact.
+Based on [Vercel Labs' json-render](https://github.com/vercel-labs/json-render), this version adds **OpenAI Luna Decision** for component selection and layout alongside the original **default** and **Jev** modes. The upstream framework and Apache-2.0 license remain intact.
 
 ## Who is this for?
 
@@ -49,7 +49,7 @@ The default mode keeps the upstream generative-model flow. The framework also in
 
 ### 1. Clone and prepare the source build
 
-The EvoLink evaluator is a **source addition in this fork**. Installing the published upstream npm packages alone does not install this integration.
+The Luna Decision evaluator is a **source addition in this fork**. Installing the published upstream npm packages alone does not install this integration.
 
 Requirements: Node.js 24+, pnpm 11.1.3, and a globally available `portless` executable. The following tool versions were used for the local acceptance run:
 
@@ -74,13 +74,13 @@ Create the ignored local environment file **only if it does not already exist**:
 chmod 600 apps/web/.env.local
 ```
 
-Open `apps/web/.env.local` in an editor. For **Luna Decision only**, set:
+Open `apps/web/.env.local` in an editor. For **OpenAI Luna Decision only**, set:
 
 ```dotenv
 EVOLINK_API_KEY=your_evolink_api_key
 ```
 
-[Get an EvoLink API key](https://evolink.ai). Keep the real value in `.env.local` or the server's environment, never in the example file or browser code.
+This example accesses OpenAI Luna Decision through EvoLink. [Get your API key](https://evolink.ai/dashboard/keys?utm_source=github&utm_medium=repo&utm_campaign=json-render&utm_content=quickstart), then keep the real value in `.env.local` or the server's environment, never in the example file or browser code.
 
 | Mode / feature | Environment variables | When required |
 | --- | --- | --- |
@@ -166,4 +166,6 @@ The upstream npm publishing workflow is restricted to `vercel-labs/json-render`;
 
 ## Source and license
 
-Fork maintained by cheercheung, based on upstream commit `72568f990e5502c4d3115691facb8ca928a5c9fc`. [Inspect the source provenance](EVOLINK_SOURCE.json), [read the original upstream README](README.upstream.md), and [read the Apache-2.0 license](LICENSE).
+Original repository: [vercel-labs/json-render](https://github.com/vercel-labs/json-render), by Vercel Labs.
+
+License: [Apache-2.0](LICENSE).
