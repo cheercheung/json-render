@@ -1,0 +1,23 @@
+{
+  "upstream": "https://github.com/vercel-labs/json-render",
+  "upstream_commit": "72568f990e5502c4d3115691facb8ca928a5c9fc",
+  "license": "Apache-2.0",
+  "source_post": "https://x.com/ctatedev/status/2101022101750571357",
+  "source_verification": "Original X direct read returned 403; confirmed repository, author/project docs and indexed source mapping; no performance/price claim revalidated.",
+  "local_branch": "local/evolink-luna-decision",
+  "adapted_at": "2026-10-21",
+  "live_api_calls": null,
+  "repository": "https://github.com/cheercheung/json-render",
+  "live_api_calls_note": "Real API calls were made on 2026-10-22; aggregate count and billing were not instrumented. The recorded accepted contact-form run used 2 evaluator calls.",
+  "validation": {
+    "date": "2026-10-22",
+    "recorded_contact_form": {
+      "passed": true,
+      "composition_ms": 2471,
+      "evaluator_calls": 2,
+      "reported_input_tokens": 11840,
+      "recording": "docs/media/luna-contact-form.mp4"
+    },
+    "npm_release": false
+  }
+}

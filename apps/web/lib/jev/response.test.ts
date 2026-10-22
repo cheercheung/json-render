@@ -1,3 +1,4 @@
+// Local EvoLink adaptation (2026-10-21): add Luna Decisions alongside existing models.
 // @vitest-environment node
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { type JsonPatch, type Spec } from "@json-render/core";
@@ -136,6 +137,39 @@ describe("playground composition response", () => {
     expect(
       await createCompositionResponse(request, "Create a form").text(),
     ).toContain('"__meta":"error"');
+  });
+
+  it("requires only the selected Luna key and dispatches the EvoLink provider", async () => {
+    vi.stubEnv("JEV_AI_GATEWAY_API_KEY", "original-key");
+    vi.stubEnv("EVOLINK_API_KEY", "");
+    const request = new Request("https://example.test/api/generate");
+    expect(
+      createCompositionResponse(request, "Create a panel", undefined, "evolink")
+        .status,
+    ).toBe(503);
+    expect(composeUI).not.toHaveBeenCalled();
+    vi.stubEnv("JEV_AI_GATEWAY_API_KEY", "");
+    vi.stubEnv("EVOLINK_API_KEY", "offline-placeholder");
+    vi.mocked(composeUI).mockImplementation(async function* () {
+      yield {
+        type: "complete",
+        spec: null,
+        steps: [],
+        stopReason: "unavailable",
+        elapsedMs: 1,
+        inputTokens: null,
+        estimatedCostUsd: null,
+      };
+    });
+    const response = createCompositionResponse(
+      request,
+      "Create a panel",
+      undefined,
+      "evolink",
+    );
+    expect(response.status).toBe(200);
+    expect(await response.text()).toContain('"stopReason":"unavailable"');
+    expect(vi.mocked(composeUI).mock.calls[0]![4]).toBe("evolink");
   });
 
   it("validates requests before starting the model", async () => {

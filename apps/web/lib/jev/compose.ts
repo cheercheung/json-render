@@ -1,6 +1,8 @@
+// Local EvoLink adaptation (2026-10-21): add Luna Decisions alongside existing models.
 import {
   experimental_composeSpec,
   experimental_createEvaluator,
+  experimental_createEvoLinkEvaluator,
   type Experimental_CompositionEvaluator,
   type Experimental_CompositionEvent,
   type Experimental_CompositionStep,
@@ -22,12 +24,19 @@ export type CompositionEvent =
 export async function* composeUI(
   prompt: string,
   signal: AbortSignal,
-  evaluate: Evaluate = experimental_createEvaluator({
-    model: "typesafe-ai/jev",
-    apiKey: process.env.JEV_AI_GATEWAY_API_KEY ?? "",
-  }),
+  evaluate: Evaluate | undefined = undefined,
   initialSpec?: Spec,
+  provider: "jev" | "evolink" = "jev",
 ): AsyncGenerator<CompositionEvent> {
+  evaluate ??=
+    provider === "evolink"
+      ? experimental_createEvoLinkEvaluator({
+          apiKey: process.env.EVOLINK_API_KEY ?? "",
+        })
+      : experimental_createEvaluator({
+          model: "typesafe-ai/jev",
+          apiKey: process.env.JEV_AI_GATEWAY_API_KEY ?? "",
+        });
   for await (const event of experimental_composeSpec({
     catalog: playgroundCatalog,
     candidates: buildCandidates(prompt),
@@ -78,7 +87,9 @@ export async function* composeUI(
       yield {
         ...event,
         estimatedCostUsd:
-          event.inputTokens === null ? null : (event.inputTokens * 0.042) / 1e6,
+          provider === "evolink" || event.inputTokens === null
+            ? null
+            : (event.inputTokens * 0.042) / 1e6,
       };
     } else yield event;
   }

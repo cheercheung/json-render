@@ -1,3 +1,5 @@
+> EvoLink fork: the shared playground also offers **luna decision**. Set server-side `EVOLINK_API_KEY`; the same composer/candidates run through `experimental_createEvoLinkEvaluator` and the official Decisions endpoint. Jev/default remain available with their own keys. A recorded English contact-form test passed on 2026-10-22; this is not a quality or latency benchmark, and actual billing remains unverified. See [the fork setup](../../../../EVOLINK_LOCAL.md) and [validation results](../../../../docs/evolink-validation.md).
+
 # Jev composing catalog UI
 
 Open **`/playground`** and select **jev** in the **default / jev** toggle. Hover or focus the Jev option with its info icon to read its experimental status. This experiment uses Jev through Vercel AI Gateway to compose a tree and edit it in follow-up requests. It renders with the **actual playground catalog and registry**, including the existing shadcn components, state bindings, validation, and action handlers.

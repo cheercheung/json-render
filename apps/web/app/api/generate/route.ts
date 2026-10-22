@@ -1,3 +1,4 @@
+// Local EvoLink adaptation (2026-10-21): add Luna Decisions alongside existing models.
 import { streamText } from "ai";
 import { headers } from "next/headers";
 import type { Spec, EditMode } from "@json-render/core";
@@ -96,6 +97,13 @@ export async function POST(req: Request) {
   const { prompt, context, format, editModes, model } = await req.json();
   if (model === "typesafe-ai/jev")
     return createCompositionResponse(req, prompt, context?.previousSpec);
+  if (model === "gpt-6-luna-decisions")
+    return createCompositionResponse(
+      req,
+      prompt,
+      context?.previousSpec,
+      "evolink",
+    );
   const isYaml = format === "yaml";
 
   const systemPrompt = getSystemPrompt(isYaml, editModes);

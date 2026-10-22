@@ -1,3 +1,4 @@
+// Local EvoLink adaptation (2026-10-21): add Luna Decisions alongside existing models.
 "use client";
 
 import { useState, useCallback, useRef, useEffect } from "react";
@@ -15,7 +16,10 @@ import {
 } from "@json-render/yaml";
 import { applySpecPatch } from "./spec-patch";
 
-export type PlaygroundModel = "default" | "typesafe-ai/jev";
+export type PlaygroundModel =
+  | "default"
+  | "typesafe-ai/jev"
+  | "gpt-6-luna-decisions";
 
 export interface CompositionSummary {
   stopReason: "finish" | "limit" | "unavailable";
@@ -152,7 +156,7 @@ export function usePlaygroundStream({
       abortControllerRef.current = controller;
       const requestModel = modelRef.current;
       const requestFormat =
-        requestModel === "typesafe-ai/jev" ? "jsonl" : formatRef.current;
+        requestModel !== "default" ? "jsonl" : formatRef.current;
       let compositionComplete = false;
 
       setIsStreaming(true);
@@ -517,7 +521,7 @@ export function usePlaygroundStream({
         }
 
         setRawLines([...rawLinesRef.current]);
-        if (requestModel === "typesafe-ai/jev" && !compositionComplete)
+        if (requestModel !== "default" && !compositionComplete)
           throw new Error("Composition ended early. The preview is partial.");
         onCompleteRef.current?.(currentSpec);
       } catch (err) {

@@ -1,3 +1,4 @@
+// Local EvoLink adaptation (2026-10-21): add Luna Decisions alongside existing models.
 // Types
 export type {
   DynamicValue,
@@ -244,3 +245,6 @@ export type {
 } from "./experimental-compose";
 export { experimental_createEvaluator } from "./experimental-evaluator";
 export type { Experimental_EvaluatorOptions } from "./experimental-evaluator";
+
+export { experimental_createEvoLinkEvaluator } from "./experimental-evolink-evaluator";
+export type { Experimental_EvoLinkEvaluatorOptions } from "./experimental-evolink-evaluator";

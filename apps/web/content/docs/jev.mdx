@@ -3,6 +3,8 @@ title: "Jev (Experimental)"
 ---
 **Experimental:** `experimental_composeSpec` and `experimental_createEvaluator` are reusable APIs in `@json-render/core`. Like AI SDK's experimental APIs, names prefixed with `experimental_` or `Experimental_` may change in any release. Pin exact package versions (no `^` or `~`) and review release notes before upgrading.
 
+**EvoLink fork:** this source checkout also exports `experimental_createEvoLinkEvaluator({ apiKey })` from `@json-render/core`. It sends choice questions to EvoLink's `POST https://direct.evolink.ai/v1/decisions` with model `gpt-6-luna-decisions`, validates answer/probability arrays and preserves confidence and token usage. Select **luna decision** in the playground and configure server-only `EVOLINK_API_KEY`; this mode needs no Gateway key. Jev and default keep their separate credentials. A local English contact-form test on 2026-10-22 passed required-field, email and success-notification checks. Billing and comparative performance remain unverified; upstream Jev timings/prices are not Luna results. Source provenance and setup are documented in `EVOLINK_SOURCE.json` and `EVOLINK_LOCAL.md` at the repository root.
+
 **Availability:** these APIs are unreleased. You can try the source build below before they appear in a published npm version.
 
 Open the [playground](/playground), select **jev** in the **default / jev** toggle, and send a request. Hover or focus the Jev option with its info icon for details about the experiment. Or use your own catalog in your app. [Share feedback](https://github.com/vercel-labs/json-render/issues/new) with your catalog, candidates, request, resulting spec, and expected behavior. Remove private data from reproductions.

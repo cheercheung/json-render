@@ -693,3 +693,7 @@ json-render supports completely different spec formats for different renderers:
 ```
 
 Each renderer defines its own schema with `defineSchema()` and its own prompt template.
+
+## Local EvoLink Decisions adapter
+
+Local addition, 2026-10-21: `experimental_createEvoLinkEvaluator({ apiKey })` implements `Experimental_CompositionEvaluator` using `POST https://direct.evolink.ai/v1/decisions` with model `gpt-6-luna-decisions`. It maps named criteria to choice arrays and validates the returned names, offered options and probabilities. Run server-side; optional `model`, `baseUrl`, `timeoutMs`, and `fetch` support the documented Luna alias, explicit official fallback, cancellation and offline HTTP mocks. No automatic fallback or retry is performed. The original Gateway evaluator is retained. See the root [local setup](../../EVOLINK_LOCAL.md). These APIs require this pinned source build.

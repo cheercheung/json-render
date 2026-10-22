@@ -1,3 +1,4 @@
+// Local EvoLink adaptation (2026-10-21): add Luna Decisions alongside existing models.
 "use client";
 
 import { useEffect, useState, useCallback, useRef, useMemo } from "react";
@@ -126,6 +127,16 @@ function ModelToggle({
             </p>
           </TooltipContent>
         </Tooltip>
+        <button
+          type="button"
+          aria-label="Luna Decision (experimental)"
+          aria-pressed={model === "gpt-6-luna-decisions"}
+          disabled={disabled}
+          onClick={() => onChange("gpt-6-luna-decisions")}
+          className={`px-1.5 py-0.5 transition-colors disabled:opacity-50 ${model === "gpt-6-luna-decisions" ? "bg-muted text-foreground" : "text-muted-foreground hover:text-foreground"}`}
+        >
+          luna decision
+        </button>
       </div>
     </TooltipProvider>
   );
@@ -135,9 +146,11 @@ function VersionDetails({ version }: { version: Version }) {
   return (
     <>
       <div className="mt-1 ml-6 text-[10px] font-mono text-muted-foreground/60">
-        {version.model === "typesafe-ai/jev"
-          ? "Jev · Experimental"
-          : "Default model"}
+        {version.model === "gpt-6-luna-decisions"
+          ? "Luna Decision · Experimental"
+          : version.model === "typesafe-ai/jev"
+            ? "Jev · Experimental"
+            : "Default model"}
         {version.composition &&
           ` · ${(version.composition.elapsedMs / 1000).toFixed(2)} s · ${version.composition.calls} calls`}
         {version.status === "partial" && " · partial"}
@@ -176,7 +189,7 @@ function PlaygroundControls({
   return (
     <div className="flex min-w-0 flex-wrap items-center gap-2">
       <ModelToggle model={model} onChange={setModel} disabled={disabled} />
-      {model !== "typesafe-ai/jev" && (
+      {model === "default" && (
         <>
           <div className="flex shrink-0 items-center rounded border border-border text-[10px] font-mono overflow-hidden">
             {(["jsonl", "yaml"] as const).map((f) => (
@@ -335,9 +348,9 @@ export function Playground() {
   const [versionsSheetOpen, setVersionsSheetOpen] = useState(false);
   const [preferredFormat, setFormat] = useState<StreamFormat>("jsonl");
   const [model, setModel] = useState<PlaygroundModel>("default");
-  const format = model === "typesafe-ai/jev" ? "jsonl" : preferredFormat;
+  const format = model !== "default" ? "jsonl" : preferredFormat;
   const examplePrompts =
-    model === "typesafe-ai/jev"
+    model !== "default"
       ? JEV_EXAMPLE_PROMPTS
       : EXAMPLE_PROMPTS.map((prompt) => ({ label: prompt, prompt }));
   const [editModes, setEditModes] = useState<EditMode[]>(["patch"]);
@@ -627,7 +640,7 @@ ${jsx}
         {versions.length === 0 ? (
           <div className="flex-1 flex flex-col items-center justify-center text-center px-4">
             <p className="text-sm text-muted-foreground mb-4">
-              {model === "typesafe-ai/jev"
+              {model !== "default"
                 ? "Describe a UI to compose from the prepared options."
                 : "Describe what you want to build, then iterate on it."}
             </p>
@@ -724,7 +737,7 @@ ${jsx}
           onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Describe changes..."
-          maxLength={model === "typesafe-ai/jev" ? 1000 : undefined}
+          maxLength={model !== "default" ? 1000 : undefined}
           className="w-full bg-background text-base sm:text-sm resize-none outline-none placeholder:text-muted-foreground/50"
           rows={2}
         />
@@ -1341,7 +1354,7 @@ ${jsx}
                 ) : (
                   <>
                     <p className="text-sm text-muted-foreground mb-4">
-                      {model === "typesafe-ai/jev"
+                      {model !== "default"
                         ? "Describe a UI to compose from the prepared options."
                         : "Describe what you want to build, then iterate on it."}
                     </p>
@@ -1399,7 +1412,7 @@ ${jsx}
             onChange={(e) => setInputValue(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Describe changes..."
-            maxLength={model === "typesafe-ai/jev" ? 1000 : undefined}
+            maxLength={model !== "default" ? 1000 : undefined}
             className="w-full bg-background text-base resize-none outline-none placeholder:text-muted-foreground/50"
             rows={2}
           />

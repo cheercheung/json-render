@@ -1,3 +1,4 @@
+// Local EvoLink adaptation (2026-10-21): add Luna Decisions alongside existing models.
 import { z } from "zod";
 import { diffToPatches, type Spec } from "@json-render/core";
 import { composeUI } from "./compose";
@@ -25,6 +26,7 @@ export function createCompositionResponse(
   request: Request,
   prompt: unknown,
   previousSpec?: unknown,
+  provider: "jev" | "evolink" = "jev",
 ) {
   const input = inputSchema.safeParse({ prompt });
   if (!input.success)
@@ -45,11 +47,16 @@ export function createCompositionResponse(
       { status: 400 },
     );
   const initialSpec = previous?.success ? (previous.data as Spec) : undefined;
-  if (!process.env.JEV_AI_GATEWAY_API_KEY?.trim())
+  if (
+    !(
+      provider === "evolink"
+        ? process.env.EVOLINK_API_KEY
+        : process.env.JEV_AI_GATEWAY_API_KEY
+    )?.trim()
+  )
     return Response.json(
       {
-        error:
-          "Jev is temporarily unavailable. Choose the default model to continue.",
+        error: `${provider === "evolink" ? "Luna Decision" : "Jev"} is unavailable. Configure its server-side API key.`,
       },
       { status: 503 },
     );
@@ -80,6 +87,7 @@ export function createCompositionResponse(
           signal,
           undefined,
           initialSpec,
+          provider,
         )) {
           if (event.type === "error") throw new Error(event.message);
           if (event.type === "step") {
@@ -106,7 +114,7 @@ export function createCompositionResponse(
             __meta: "error",
             message:
               error instanceof z.ZodError
-                ? "Jev returned an invalid decision payload."
+                ? "The decision model returned an invalid payload."
                 : error instanceof Error
                   ? error.message
                   : "Composition failed.",
