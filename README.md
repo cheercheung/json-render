@@ -1,5 +1,7 @@
 # json-render + EvoLink Luna Decision
 
+[English](README.md) | [简体中文](README.zh-CN.md)
+
 Build interactive interfaces from natural-language requests using components, data and actions that your application controls.
 
 This is [cheercheung's fork](https://github.com/cheercheung/json-render) of [Vercel Labs' json-render](https://github.com/vercel-labs/json-render). It adds an **EvoLink Luna Decision** evaluator and playground option alongside the original **default** and **Jev** modes. The upstream Apache-2.0 license and framework remain intact.
