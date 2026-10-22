@@ -129,9 +129,9 @@ for await (const event of experimental_composeSpec({
 
 ## Recorded example
 
-![Luna-generated contact form after successful local validation](docs/media/luna-contact-form.png)
+https://github.com/user-attachments/assets/4ca2a733-8e4a-478a-9b0f-4e284e805722
 
-[Watch the complete English contact-form test](docs/media/luna-contact-form.mp4) (31.76 seconds, original speed, no cuts).
+[Download the original English contact-form recording](docs/media/luna-contact-form.mp4) (31.76 seconds, original speed, no cuts).
 
 The recorded run on 2026-10-22 finished composition in **2.471 seconds**, with **2 evaluator calls** and **11,840 reported input tokens**. Required fields, invalid email and the valid-submission notification passed. These are observations from one local acceptance run, not a latency benchmark or a price comparison. Actual billing was not verified.
 
